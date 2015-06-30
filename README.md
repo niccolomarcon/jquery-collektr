@@ -1,6 +1,6 @@
 ![Collektr](http://collektr15.s3.amazonaws.com/assets/collektr_logo-12bc3d328311e37f84e314c2102539fa.png)'s jquery plugin
 ========
-With this **easy-to-use** jquery plugin you will be able to **implement in your site** the deck view of your favourite collection in a matter of seconds. The best part is that it is easly **customizable**. Obviously you **need an account** to use this plugin. If you do not know what is Collektr or you do not have an account, click [here](http://app.collektr.com/users/sign_in) to learn more.
+[Collektr](http://collektr.com) is a platform that allow you to collect, moderate and display posts from various social-network. It is a really awesome tool and with this **easy-to-use** jquery plugin you will be able to **implement in your site** the deck view of your favourite collection in a matter of seconds. The best part is that it is easly **customizable**. Obviously you **need an account** to use this plugin. If you do not have an account, click [here](http://app.collektr.com/users/sign_in) to get one.
 
 # Basic usage
 ### HTML
@@ -36,6 +36,9 @@ Collektr's jquery plugin has been developed mainly using [CoffeeScript](https://
 * [Handlebars.js](https://github.com/wycats/handlebars.js/)
 
 You do not need to import them because the plugin imports them by itself if they are not present in the page. Only **Endless Scroll** has been modified(only a little) in order to write less code in the main plugin.
+
+If you want to take part in this project, remember to launch a ```npm install``` to get all the dependencies you need.
+Launch ```grunt -f``` to build everything.
 
 # TODO
 The plugin is ready but it can be better. These are some things to do:
