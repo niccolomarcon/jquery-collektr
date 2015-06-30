@@ -1,0 +1,8 @@
+{{#each this}}
+  <div class="new collektr-entry">
+    <blockquote>
+      <p>{{#parseLinks content}}{{/parseLinks}}</p>
+      <footer>{{from}} on {{#parseDate created_at}}{{/parseDate}}</footer>
+    </blockquote>
+  </div>
+{{/each}}
