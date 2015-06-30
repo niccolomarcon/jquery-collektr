@@ -1,0 +1,38 @@
+{{#each this}}
+  <div class="{{label}} new collektr-entry" id="{{id}}" data-external-id="{{external_id}}">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <img src="{{profile_image_url}}" class="img-profile" style="max-height: 48px; max-width: 48px;">
+        <span class="small">
+          <a href="{{profile_url}}" target="_blank">{{from}}</a>
+        </span>
+      </div>
+      <div class="media-wrapper">
+        {{#switchMedia this}}{{/switchMedia}}
+      </div>
+      <div class="panel-body">
+        {{#ifContent content}}
+          <p>{{#parseLinks content}}{{/parseLinks}}</p>
+        {{/ifContent}}
+      </div>
+      <div class="panel-footer">
+        <a href="{{original_content_url}}" target="_blank">
+          <i class="fa img-provider fa-{{provider_name}}"></i>
+        </a>
+        <span class="small">{{#parseDate created_at}}{{/parseDate}}</span>
+        <div class="btn-group pull-right dropdown">
+          <button type="button" class="btn btn-xs dropdown-toggle" id="dropdownMenu{{id}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <i class="fa fa-share"></i>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenu{{id}}">
+            <li><div class="fb-like" data-href="{{original_content_url}}" data-width="200" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div></li>
+            <li><div class="g-plusone" data-annotation="inline" data-width="300" data-href="{{original_content_url}}"></div></li>
+            <li><a href="https://twitter.com/share" class="twitter-share-button" data-url="{{original_content_url}}" data-text="{{content}}">Tweet</a></li>
+            {{#ifImg content_type}}<li><div class="share" pin-it="{{content}}" pin-it-url="{{original_content_url}}" pin-it-image="{{media_url}}"></div></li>{{/ifImg}}
+          </ul>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+{{/each}}

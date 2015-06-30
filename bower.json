@@ -1,0 +1,18 @@
+{
+	"name": "jquery-collektr",
+	"version": "1.0.0",
+	"homepage": "https://github.com/niccolomarcon/jquery-collektr",
+	"authors": [
+		"Niccolò Marcon <marcon.niccolo@gmail.com>"
+	],
+	"description": "A jquery plugin that can embed collektr in a web page.",
+	"main": "src/jquery.collektr.coffee",
+	"keywords": [
+		"jquery",
+		"plugin",
+		"collektr",
+		"jquery-plugin",
+		"jquery-collektr"
+	],
+	"license": "MIT"
+}
