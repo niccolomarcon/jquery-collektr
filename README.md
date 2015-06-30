@@ -1,6 +1,6 @@
 ![Collektr](http://collektr15.s3.amazonaws.com/assets/collektr_logo-12bc3d328311e37f84e314c2102539fa.png)'s jquery plugin
 ========
-With this **easy-to-use** jquery plugin you will be able to **implement in your site** the deck view of your favourite collection in a matter of seconds. The best part is that it is easly **customizable**. Obviously you **need an account** to use this plugin. If you do not know what is Collektr or you do not have an account, click [here](http://link_to_collektr.com) to learn more.
+With this **easy-to-use** jquery plugin you will be able to **implement in your site** the deck view of your favourite collection in a matter of seconds. The best part is that it is easly **customizable**. Obviously you **need an account** to use this plugin. If you do not know what is Collektr or you do not have an account, click [here](http://app.collektr.com/users/sign_in) to learn more.
 
 # Basic usage
 ### HTML
@@ -18,7 +18,7 @@ $("#placeholder").Collektr({
 });
 ```
 
-If you want to use the built-in template used to display the cards you also need this:
+If you want to use the built-in template used to display the cards you will also need this:
 ```html
 <!-- Bootstrap -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -27,7 +27,7 @@ If you want to use the built-in template used to display the cards you also need
 <link rel="stylesheet" href="http://assets.collektr.com/assets/deck/application.css">
 ```
 
-By using only this code you will get somethig like [this](http://link_to_demo.com)
+By using only this code you will get somethig like [this](http://niccolomarcon.github.io/jquery-collektr)
 
 # Options
 
@@ -49,7 +49,7 @@ If you do not set this options the plugin will not be able to load the content o
 
 # How-Tos
 ### Contain the plugin
-[DEMO]()
+[DEMO](http://niccolomarcon.github.io/jquery-collektr/contain.html)
 
 Sometimes you may want to contain the board in a little div instead of let the plugin use all the page. Here's what you have to do. It is very easy. In fact, all you have to do is change the dimension of the div where you apply the plugin.
 ```html
@@ -58,9 +58,9 @@ Sometimes you may want to contain the board in a little div instead of let the p
 **NOTE** If you change the height of the div you need to set the ```fullScreen``` option to false. By doing this the plugin will know that he will have to track the scroll of the div. Also set ```overflow-y``` to ```scroll``` in the style.
 
 ### Custom template
-[DEMO]()
+[DEMO](http://niccolomarcon.github.io/jquery-collektr/custom.html)
 
-Probably you have developed an awesome design for your site and you want to use the same style for your board. First you have to create a [Handlebars](https://github.com/wycats/handlebars.js/) template in a separate page. Here is the boilerplate:
+Probably you have developed an awesome design for your site and you want to use the same style for your board. First you have to create a [Handlebars.js](https://github.com/wycats/handlebars.js/) template in a separate page. Here is the boilerplate:
 ```html
 {{#each this}}
   <div class="new collektr-entry">
@@ -130,8 +130,6 @@ Collektr's jquery plugin has been developed mainly using [CoffeeScript](https://
 * [Handlebars.js](https://github.com/wycats/handlebars.js/)
 
 You do not need to import them because the plugin imports them by itself if they are not present in the page. Only **Endless Scroll** has been modified(only a little) in order to write less code in the main plugin.
-
-
 
 # TODO
 The plugin is ready but it can be better. These are some things to do:
