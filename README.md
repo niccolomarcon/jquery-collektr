@@ -38,7 +38,7 @@ Collektr's jquery plugin has been developed mainly using [CoffeeScript](https://
 You do not need to import them because the plugin imports them by itself if they are not present in the page. Only **Endless Scroll** has been modified(only a little) in order to write less code in the main plugin.
 
 If you want to take part in this project, remember to launch a ```npm install``` to get all the dependencies you need.
-Launch ```grunt -f``` to build everything.
+Launch ```grunt -f``` to build everything. To run the demo you need a webserver like [XAMPP](https://www.apachefriends.org/it/index.html) or [MAMP](https://www.mamp.info/en/).
 
 # TODO
 The plugin is ready but it can be better. These are some things to do:
