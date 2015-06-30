@@ -20,7 +20,7 @@
     "email": "marcon.niccolo@gmail.com",
     "url": "https://github.com/niccolomarcon"
   },
-  "homepage": "none",
+  "homepage": "http://niccolomarcon.github.io/jquery-collektr/",
   "license": "MIT",
   "devDependencies": {
     "grunt": "~0.4.5",
