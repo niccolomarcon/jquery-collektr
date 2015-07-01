@@ -26,7 +26,7 @@ If you want to use the built-in template used to display the cards you will also
 <!-- Our .css -->
 <link rel="stylesheet" href="http://assets.collektr.com/assets/deck/application.css">
 ```
-By using only this code you will get somethig like [this](http://niccolomarcon.github.io/jquery-collektr)
+By using only this code you will get somethig like [this](http://niccolomarcon.github.io/jquery-collektr).
 
 # How it was developed
 Collektr's jquery plugin has been developed mainly using [CoffeeScript](https://github.com/jashkenas/coffeescript) after creating a boilerplate with [Yeoman](https://github.com/yeoman/yeoman) and [Jquery Generator](https://github.com/jquery-boilerplate/generator-jquery-boilerplate). The plugin uses 4 external libraries:
@@ -43,4 +43,4 @@ Launch ```grunt -f``` to build everything. To run the demo you need a webserver 
 # TODO
 The plugin is ready but it can be better. These are some things to do:
 * [ ] Complete the implementation of the share-menu in the built-in template
-* [ ] Performance could be **realy** better (the scroll in the first place)
+* [ ] Performance could be **really** better (the scroll in the first place)
