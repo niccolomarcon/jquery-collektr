@@ -194,7 +194,7 @@
               if (card.content_type === "image") {
                 return '<a href="' + card.media_url + '" class="fancybox"><img src="' + card.media_url + '" class="img-responsive"></a>';
               } else {
-                return '<div class="embed-responsive embed-responsive-4by3">' + card.media_tag + '</div>';
+                return "<a href='" + card.media_tag + "' class='fancybox' data-fancybox-type='iframe'><img src='" + card.thumbnail_image_url + "' class='img-responsive'></a>";
               }
             });
             if (_this.settings.customHelpers != null) {
