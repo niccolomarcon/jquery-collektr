@@ -7,6 +7,8 @@ do ($ = jQuery, window, document) ->
 		templateURL:               null
 		masonryURL:                "http://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.0/masonry.pkgd.min.js"
 		imgLoadedURL:              "http://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.1.8/imagesloaded.pkgd.min.js"
+		fancyURL:                  "http://cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.js"
+		fancyCssURL:               "http://cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css"
 		customHelpers:             null
 		range:                     null
 		offset:                    20
@@ -75,6 +77,7 @@ do ($ = jQuery, window, document) ->
 			@masonrySetup()
 			@handlebarsSetup()
 			@styleSetup()
+			@fancySetup()
 			@settings.range = [0, 29] unless @settings.range? # why i need this?
 
 			# First print
@@ -181,7 +184,7 @@ do ($ = jQuery, window, document) ->
 
 				Handlebars.registerHelper 'switchMedia', (card, options) -> #cursed switch
 					if card.content_type is "text" then return '<div></div>'
-					if card.content_type is "image" then return'<a href="' + card.media_url + '" class="fancybox" target="_blank"><img src="' + card.media_url + '" class="img-responsive"></a>'
+					if card.content_type is "image" then return'<a href="' + card.media_url + '" class="fancybox"><img src="' + card.media_url + '" class="img-responsive"></a>'
 					else return '<div class="embed-responsive embed-responsive-4by3">' + card.media_tag + '</div>'
 
 				@settings.customHelpers() if @settings.customHelpers?
@@ -195,7 +198,17 @@ do ($ = jQuery, window, document) ->
 			$("head").append () =>
 				wide = 100 / @settings.columnNumber - 2
 				selector = if @element.id isnt "" then "##{@element.id}" else ".#{@element.className}"
-				"<style>#{selector} .collektr-entry { width: #{wide}%; margin: 0% 1% 0% 1%; }</style>"
+				"<style>#{selector} .collektr-entry { width: #{wide}%; margin: 0% 1% 0% 1%; }</style><link rel='stylesheet' href='#{@settings.fancyCssURL}' type='text/css' 'media=screen' />"
+		fancySetup: () ->
+			if fancybox?
+				$(".fancybox").fancybox({
+		      closeBtn: false
+		    });
+			else
+				$.get @settings.fancyURL, () =>
+					$(".fancybox").fancybox({
+			      closeBtn: false
+			    });
 
 		# Fire the callback
 		fireCallback: () ->
