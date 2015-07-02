@@ -14,6 +14,7 @@ do ($ = jQuery, window, document) ->
 		columnNumber:              5
 		containerID:               "#collektr"
 		container:                 "collektr"
+		noScroll:                  false
 		builtInTemplate:         """{{#each this}}
 																  <div class="{{label}} new collektr-entry" id="{{id}}" data-external-id="{{external_id}}">
 																    <div class="panel panel-default">
@@ -101,7 +102,7 @@ do ($ = jQuery, window, document) ->
 
 				@masonry()
 				@upgradeRange()
-				@scroll()
+				@scroll() unless noScroll
 				@fireCallback()
 
 			if @settings.templateURL?

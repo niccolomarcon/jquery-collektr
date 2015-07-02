@@ -1,7 +1,7 @@
 /*
  *  jquery-collektr - v1.0.0
  *  A jquery plugin that can embed collektr in a web page.
- *  none
+ *  http://niccolomarcon.github.io/jquery-collektr/
  *
  *  Made by Niccolò Marcon
  *  Under MIT License
@@ -24,6 +24,7 @@
       columnNumber: 5,
       containerID: "#collektr",
       container: "collektr",
+      noScroll: false,
       builtInTemplate: "{{#each this}}\n  <div class=\"{{label}} new collektr-entry\" id=\"{{id}}\" data-external-id=\"{{external_id}}\">\n    <div class=\"panel panel-default\">\n      <div class=\"panel-heading\">\n        <img src=\"{{profile_image_url}}\" class=\"img-profile\" style=\"max-height: 48px; max-width: 48px;\">\n        <span class=\"small\">\n          <a href=\"{{profile_url}}\" target=\"_blank\">{{from}}</a>\n        </span>\n      </div>\n      <div class=\"media-wrapper\">\n        {{#switchMedia this}}{{/switchMedia}}\n      </div>\n      <div class=\"panel-body\">\n        {{#ifContent content}}\n          <p>{{#parseLinks content}}{{/parseLinks}}</p>\n        {{/ifContent}}\n      </div>\n      <div class=\"panel-footer\">\n        <a href=\"{{original_content_url}}\" target=\"_blank\">\n          <i class=\"fa img-provider fa-{{provider_name}}\"></i>\n        </a>\n        <span class=\"small\">{{#parseDate created_at}}{{/parseDate}}</span>\n        <div class=\"btn-group pull-right dropdown\">\n          <button type=\"button\" class=\"btn btn-xs dropdown-toggle\" id=\"dropdownMenu{{id}}\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"true\">\n            <i class=\"fa fa-share\"></i>\n          </button>\n          <ul class=\"dropdown-menu\" aria-labelledby=\"dropdownMenu{{id}}\">\n            <li><div class=\"fb-like\" data-href=\"{{original_content_url}}\" data-width=\"200\" data-layout=\"button_count\" data-action=\"like\" data-show-faces=\"false\" data-share=\"true\"></div></li>\n            <li><div class=\"g-plusone\" data-annotation=\"inline\" data-width=\"300\" data-href=\"{{original_content_url}}\"></div></li>\n            <li><a href=\"https://twitter.com/share\" class=\"twitter-share-button\" data-url=\"{{original_content_url}}\" data-text=\"{{content}}\">Tweet</a></li>\n            {{#ifImg content_type}}<li><div class=\"share\" pin-it=\"{{content}}\" pin-it-url=\"{{original_content_url}}\" pin-it-image=\"{{media_url}}\"></div></li>{{/ifImg}}\n          </ul>\n        </div>\n        <div class=\"clearfix\"></div>\n      </div>\n    </div>\n  </div>\n{{/each}}",
       urlCard: function(selector, token) {
         return "http://api.collektr.com/boards/" + selector + "/cards.json?user_token=" + token;
@@ -88,7 +89,9 @@
             $(".new").css("display", "none");
             _this.masonry();
             _this.upgradeRange();
-            _this.scroll();
+            if (!noScroll) {
+              _this.scroll();
+            }
             return _this.fireCallback();
           };
         })(this);
