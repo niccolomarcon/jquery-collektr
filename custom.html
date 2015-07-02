@@ -99,6 +99,16 @@
   });
  });
 &lt;/script&gt;
+
+&#x3C;!-- template --&#x3E;
+{{#each this}}
+  &#x3C;div class=&#x22;new collektr-entry&#x22;&#x3E;
+    &#x3C;blockquote&#x3E;
+      &#x3C;p style=&#x22;word-wrap: break-word;&#x22;&#x3E;{{#parseLinks content}}{{/parseLinks}}&#x3C;/p&#x3E;
+      &#x3C;footer&#x3E;{{from}} on {{#parseDate created_at}}{{/parseDate}}&#x3C;/footer&#x3E;
+    &#x3C;/blockquote&#x3E;
+  &#x3C;/div&#x3E;
+{{/each}}
             </pre>
           </div>
         </div>
@@ -109,7 +119,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="prettify.js"></script>
-    <script src="jquery.collektr.min.js"></script>
+    <script src="../dist/jquery.collektr.min.js"></script>
 
     <script>
       $(document).ready(function(){
