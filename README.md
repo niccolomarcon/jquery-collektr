@@ -11,7 +11,7 @@
 
 ### JQuery
 ```javascript
-$("#placeholder").Collektr({
+$("#placeholder").collektr({
   token: "your_API_token",
   selector: "slug_or_id_of_your_board"
   //other options

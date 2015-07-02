@@ -29,7 +29,7 @@ do ($ = jQuery, window, document) ->
 																      </div>
 																      <div class="panel-body">
 																        {{#ifContent content}}
-																          <p>{{#parseLinks content}}{{/parseLinks}}</p>
+																          <p style="word-wrap: break-word;">{{#parseLinks content}}{{/parseLinks}}</p>
 																        {{/ifContent}}
 																      </div>
 																      <div class="panel-footer">
