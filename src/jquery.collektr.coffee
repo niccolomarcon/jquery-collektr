@@ -102,7 +102,7 @@ do ($ = jQuery, window, document) ->
 
 				@masonry()
 				@upgradeRange()
-				@scroll() unless noScroll
+				@scroll() unless @settings.noScroll
 				@fireCallback()
 
 			if @settings.templateURL?
