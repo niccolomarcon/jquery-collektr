@@ -193,11 +193,11 @@
                 return '<div></div>';
               }
               if (card.content_type === "image") {
-                return '<a href="' + card.media_url + '" class="fancybox" target="_blank"><img src="' + card.media_url + '" class="img-responsive"></a>';
+                return '<a href="' + card.media_url + '" class="fancybox" target="_blank"><img src="' + card.media_url + '" class="img-responsive" style="width: 100%"></a>';
               } else {
                 if (card.provider_name === "facebook") {
                   src = card.media_tag.match(/src="(.+)"/)[1];
-                  return "<a href='" + src + "' class='fancybox' data-fancybox-type='iframe'><img src='" + card.thumbnail_image_url + "' class='img-responsive'></a>";
+                  return "<a href='" + src + "' class='fancybox' data-fancybox-type='iframe'><img src='" + card.thumbnail_image_url + "' class='img-responsive' style='width: 100%'></a>";
                 } else {
                   return '<div class="embed-responsive embed-responsive-4by3">' + card.media_tag + '</div>';
                 }
