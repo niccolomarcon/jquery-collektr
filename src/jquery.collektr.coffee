@@ -102,7 +102,6 @@ do ($ = jQuery, window, document) ->
 				template = Handlebars.compile data
 				$(@element).find(@settings.containerID).append(template cards)
 				$(".new").css("display", "none")
-				$(".facebook").removeClass "facebook"
 
 				@masonry()
 				@upgradeRange()
@@ -185,10 +184,11 @@ do ($ = jQuery, window, document) ->
 
 				Handlebars.registerHelper 'switchMedia', (card, options) -> #cursed switch
 					if card.content_type is "text" then return '<div></div>'
-					if card.content_type is "image" then return'<a href="' + card.media_url + '" class="fancybox"><img src="' + card.media_url + '" class="img-responsive"></a>'
+					if card.content_type is "image" then return'<a href="' + card.media_url + '" class="fancybox" target="_blank"><img src="' + card.media_url + '" class="img-responsive"></a>'
 					else
 						if card.provider_name is "facebook"
-							return "<a href='" + card.media_tag + "' class='fancybox' data-fancybox-type='iframe'><img src='" + card.thumbnail_image_url + "' class='img-responsive'></a>"
+							src = card.media_tag.match(/src="(.+)"/)[1]
+							return "<a href='" + src + "' class='fancybox' data-fancybox-type='iframe'><img src='" + card.thumbnail_image_url + "' class='img-responsive'></a>"
 						else
 							return '<div class="embed-responsive embed-responsive-4by3">' + card.media_tag + '</div>'
 
@@ -205,15 +205,15 @@ do ($ = jQuery, window, document) ->
 				selector = if @element.id isnt "" then "##{@element.id}" else ".#{@element.className}"
 				"<style>#{selector} .collektr-entry { width: #{wide}%; margin: 0% 1% 0% 1%; }</style><link rel='stylesheet' href='#{@settings.fancyCssURL}' type='text/css' 'media=screen' />"
 		fancySetup: () ->
-			if fancybox?
+			setup=() =>
 				$(".fancybox").fancybox({
 		      closeBtn: false
 		    });
+
+			if fancybox?
+				setup()
 			else
-				$.get @settings.fancyURL, () =>
-					$(".fancybox").fancybox({
-			      closeBtn: false
-			    });
+				$.get @settings.fancyURL, () => setup()
 
 		# Fire the callback
 		fireCallback: () ->
