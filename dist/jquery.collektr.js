@@ -17,6 +17,8 @@
       templateURL: null,
       masonryURL: "http://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.0/masonry.pkgd.min.js",
       imgLoadedURL: "http://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.1.8/imagesloaded.pkgd.min.js",
+      fancyURL: "http://cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.js",
+      fancyCssURL: "http://cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css",
       customHelpers: null,
       range: null,
       offset: 20,
@@ -57,6 +59,7 @@
         this.masonrySetup();
         this.handlebarsSetup();
         this.styleSetup();
+        this.fancySetup();
         if (this.settings.range == null) {
           this.settings.range = [0, 29];
         }
@@ -193,13 +196,19 @@
               }
             });
             Handlebars.registerHelper('switchMedia', function(card, options) {
+              var src;
               if (card.content_type === "text") {
                 return '<div></div>';
               }
               if (card.content_type === "image") {
                 return '<a href="' + card.media_url + '" class="fancybox" target="_blank"><img src="' + card.media_url + '" class="img-responsive"></a>';
               } else {
-                return '<div class="embed-responsive embed-responsive-4by3">' + card.media_tag + '</div>';
+                if (card.provider_name === "facebook") {
+                  src = card.media_tag.match(/src="(.+)"/)[1];
+                  return "<a href='" + src + "' class='fancybox' data-fancybox-type='iframe'><img src='" + card.thumbnail_image_url + "' class='img-responsive'></a>";
+                } else {
+                  return '<div class="embed-responsive embed-responsive-4by3">' + card.media_tag + '</div>';
+                }
               }
             });
             if (_this.settings.customHelpers != null) {
@@ -224,9 +233,29 @@
             var selector, wide;
             wide = 100 / _this.settings.columnNumber - 2;
             selector = _this.element.id !== "" ? "#" + _this.element.id : "." + _this.element.className;
-            return "<style>" + selector + " .collektr-entry { width: " + wide + "%; margin: 0% 1% 0% 1%; }</style>";
+            return "<style>" + selector + " .collektr-entry { width: " + wide + "%; margin: 0% 1% 0% 1%; }</style><link rel='stylesheet' href='" + _this.settings.fancyCssURL + "' type='text/css' 'media=screen' />";
           };
         })(this));
+      };
+
+      Plugin.prototype.fancySetup = function() {
+        var setup;
+        setup = (function(_this) {
+          return function() {
+            return $(".fancybox").fancybox({
+              closeBtn: false
+            });
+          };
+        })(this);
+        if (typeof fancybox !== "undefined" && fancybox !== null) {
+          return setup();
+        } else {
+          return $.get(this.settings.fancyURL, (function(_this) {
+            return function() {
+              return setup();
+            };
+          })(this));
+        }
       };
 
       Plugin.prototype.fireCallback = function() {
