@@ -195,8 +195,8 @@
               if (card.content_type === "image") {
                 return '<a href="' + card.media_url + '" class="fancybox" target="_blank"><img src="' + card.media_url + '" class="img-responsive" style="width: 100%"></a>';
               } else {
-                if (card.provider_name === "facebook") {
-                  src = card.media_tag.match(/src="(.+)"/)[1];
+                if (card.provider_name === "facebook" || card.provider_name === "instagram") {
+                  src = card.provider_name === "facebook" ? card.media_tag.match(/src="(.+)"/)[1] : card.media_url;
                   return "<a href='" + src + "' class='fancybox' data-fancybox-type='iframe'><img src='" + card.thumbnail_image_url + "' class='img-responsive' style='width: 100%'></a>";
                 } else {
                   return '<div class="embed-responsive embed-responsive-4by3">' + card.media_tag + '</div>';
@@ -234,9 +234,7 @@
         var setup;
         setup = (function(_this) {
           return function() {
-            return $(".fancybox").fancybox({
-              closeBtn: false
-            });
+            return $(".fancybox").fancybox();
           };
         })(this);
         if (typeof fancybox !== "undefined" && fancybox !== null) {

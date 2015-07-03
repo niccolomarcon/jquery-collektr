@@ -186,11 +186,12 @@ do ($ = jQuery, window, document) ->
 					if card.content_type is "text" then return '<div></div>'
 					if card.content_type is "image" then return'<a href="' + card.media_url + '" class="fancybox" target="_blank"><img src="' + card.media_url + '" class="img-responsive" style="width: 100%"></a>'
 					else
-						if card.provider_name is "facebook"
-							src = card.media_tag.match(/src="(.+)"/)[1]
+						if card.provider_name is "facebook" or card.provider_name is "instagram"
+							src = if card.provider_name is "facebook" then card.media_tag.match(/src="(.+)"/)[1] else card.media_url
+
 							return "<a href='" + src + "' class='fancybox' data-fancybox-type='iframe'><img src='" + card.thumbnail_image_url + "' class='img-responsive' style='width: 100%'></a>"
 						else
-							return '<div class="embed-responsive embed-responsive-4by3">' + card.media_tag + '</div>'
+						  return '<div class="embed-responsive embed-responsive-4by3">' + card.media_tag + '</div>'
 
 				@settings.customHelpers() if @settings.customHelpers?
 
@@ -206,9 +207,7 @@ do ($ = jQuery, window, document) ->
 				"<style>#{selector} .collektr-entry { width: #{wide}%; margin: 0% 1% 0% 1%; }</style><link rel='stylesheet' href='#{@settings.fancyCssURL}' type='text/css' 'media=screen' />"
 		fancySetup: () ->
 			setup=() =>
-				$(".fancybox").fancybox({
-		      closeBtn: false
-		    });
+				$(".fancybox").fancybox();
 
 			if fancybox?
 				setup()
