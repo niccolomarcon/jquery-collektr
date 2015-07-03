@@ -102,6 +102,7 @@ do ($ = jQuery, window, document) ->
 				template = Handlebars.compile data
 				$(@element).find(@settings.containerID).append(template cards)
 				$(".new").css("display", "none")
+				$(".facebook").removeClass "facebook"
 
 				@masonry()
 				@upgradeRange()
@@ -185,7 +186,11 @@ do ($ = jQuery, window, document) ->
 				Handlebars.registerHelper 'switchMedia', (card, options) -> #cursed switch
 					if card.content_type is "text" then return '<div></div>'
 					if card.content_type is "image" then return'<a href="' + card.media_url + '" class="fancybox"><img src="' + card.media_url + '" class="img-responsive"></a>'
-					else return "<a href='" + card.media_tag + "' class='fancybox' data-fancybox-type='iframe'><img src='" + card.thumbnail_image_url + "' class='img-responsive'></a>" #'<div class="embed-responsive embed-responsive-4by3">' + card.media_tag + '</div>'
+					else
+						if card.provider_name is "facebook"
+							return "<a href='" + card.media_tag + "' class='fancybox' data-fancybox-type='iframe'><img src='" + card.thumbnail_image_url + "' class='img-responsive'></a>"
+						else
+							return '<div class="embed-responsive embed-responsive-4by3">' + card.media_tag + '</div>'
 
 				@settings.customHelpers() if @settings.customHelpers?
 

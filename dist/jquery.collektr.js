@@ -90,6 +90,7 @@
             template = Handlebars.compile(data);
             $(_this.element).find(_this.settings.containerID).append(template(cards));
             $(".new").css("display", "none");
+            $(".facebook").removeClass("facebook");
             _this.masonry();
             _this.upgradeRange();
             if (!_this.settings.noScroll) {
@@ -202,7 +203,11 @@
               if (card.content_type === "image") {
                 return '<a href="' + card.media_url + '" class="fancybox"><img src="' + card.media_url + '" class="img-responsive"></a>';
               } else {
-                return "<a href='" + card.media_tag + "' class='fancybox' data-fancybox-type='iframe'><img src='" + card.thumbnail_image_url + "' class='img-responsive'></a>";
+                if (card.provider_name === "facebook") {
+                  return "<a href='" + card.media_tag + "' class='fancybox' data-fancybox-type='iframe'><img src='" + card.thumbnail_image_url + "' class='img-responsive'></a>";
+                } else {
+                  return '<div class="embed-responsive embed-responsive-4by3">' + card.media_tag + '</div>';
+                }
               }
             });
             if (_this.settings.customHelpers != null) {
