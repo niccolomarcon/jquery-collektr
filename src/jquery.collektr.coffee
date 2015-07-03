@@ -26,7 +26,7 @@ do ($ = jQuery, window, document) ->
 																          <a href="{{profile_url}}" target="_blank">{{from}}</a>
 																        </span>
 																      </div>
-																      <div class="media-wrapper">
+																      <div class="media-wrapper" align="center">
 																        {{#switchMedia this}}{{/switchMedia}}
 																      </div>
 																      <div class="panel-body">
