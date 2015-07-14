@@ -34,6 +34,7 @@ Collektr's jquery plugin has been developed mainly using [CoffeeScript](https://
 * [Masonry](https://github.com/desandro/masonry)
 * [imagesLoaded](https://github.com/desandro/imagesloaded)
 * [Handlebars.js](https://github.com/wycats/handlebars.js/)
+* [fancyBox](https://github.com/fancyapps/fancyBox)
 
 You do not need to import them because the plugin imports them by itself if they are not present in the page. Only **Endless Scroll** has been modified(only a little) in order to write less code in the main plugin.
 
