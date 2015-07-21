@@ -13,6 +13,10 @@
     Plugin = (function() {
       var defaults;
 
+      Plugin.next = 0;
+
+      Plugin.fancybox_initialized = false;
+
       defaults = {
         handlebarURL: "http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js",
         templateURL: null,
@@ -25,8 +29,8 @@
         offset: 20,
         fullScreen: true,
         columnNumber: 5,
-        containerID: "#collektr",
-        container: "collektr",
+        containerID: "#collektr" + Plugin.next,
+        container: "collektr" + Plugin.next,
         noScroll: false,
         builtInTemplate: "{{#each this}}\n  <div class=\"{{label}} new collektr-entry\" id=\"{{id}}\" data-external-id=\"{{external_id}}\">\n    <div class=\"panel panel-default\">\n      <div class=\"panel-heading\">\n        <img src=\"{{profile_image_url}}\" class=\"img-profile\" style=\"max-height: 48px; max-width: 48px;\">\n        <span class=\"small\">\n          <a href=\"{{profile_url}}\" target=\"_blank\">{{from}}</a>\n        </span>\n      </div>\n      <div class=\"media-wrapper\" align=\"center\">\n        {{#switchMedia this}}{{/switchMedia}}\n      </div>\n      <div class=\"panel-body\">\n        {{#ifContent content}}\n          <p style=\"word-wrap: break-word;\">{{#parseLinks content}}{{/parseLinks}}</p>\n        {{/ifContent}}\n      </div>\n      <div class=\"panel-footer\">\n        <a href=\"{{original_content_url}}\" target=\"_blank\">\n          <i class=\"fa img-provider fa-{{provider_name}}\"></i>\n        </a>\n        <span class=\"small\">{{#parseDate created_at}}{{/parseDate}}</span>\n        <div class=\"btn-group pull-right dropdown\">\n          <button type=\"button\" class=\"btn btn-xs dropdown-toggle\" id=\"dropdownMenu{{id}}\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"true\">\n            <i class=\"fa fa-share\"></i>\n          </button>\n          <ul class=\"dropdown-menu\" aria-labelledby=\"dropdownMenu{{id}}\">\n            <li><div class=\"fb-like\" data-href=\"{{original_content_url}}\" data-width=\"200\" data-layout=\"button_count\" data-action=\"like\" data-show-faces=\"false\" data-share=\"true\"></div></li>\n            <li><div class=\"g-plusone\" data-annotation=\"inline\" data-width=\"300\" data-href=\"{{original_content_url}}\"></div></li>\n            <li><a href=\"https://twitter.com/share\" class=\"twitter-share-button\" data-url=\"{{original_content_url}}\" data-text=\"{{content}}\">Tweet</a></li>\n            {{#ifImg content_type}}<li><div class=\"share\" pin-it=\"{{content}}\" pin-it-url=\"{{original_content_url}}\" pin-it-image=\"{{media_url}}\"></div></li>{{/ifImg}}\n          </ul>\n        </div>\n        <div class=\"clearfix\"></div>\n      </div>\n    </div>\n  </div>\n{{/each}}",
         urlCard: function(selector, token) {
@@ -43,6 +47,7 @@
         this._defaults = defaults;
         this._name = pluginName;
         this.init();
+        this.next++;
       }
 
       Plugin.prototype.init = function() {
@@ -60,7 +65,10 @@
         this.masonrySetup();
         this.handlebarsSetup();
         this.styleSetup();
-        this.fancySetup();
+        if (!Plugin.fancybox_initialized) {
+          this.fancySetup();
+        }
+        Plugin.fancybox_initialized = true;
         if (this.settings.range == null) {
           this.settings.range = [0, 29];
         }
@@ -79,7 +87,8 @@
           headers: {
             "Range-Unit": "items",
             "Range": "" + this.settings.range[0] + "-" + this.settings.range[1]
-          }
+          },
+          crossDomain: true
         });
       };
 
@@ -243,7 +252,7 @@
         var setup;
         setup = (function(_this) {
           return function() {
-            return $(".fancybox").fancybox();
+            return $(".fancybox").fancybox({});
           };
         })(this);
         if (typeof fancybox !== "undefined" && fancybox !== null) {

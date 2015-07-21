@@ -5,6 +5,9 @@ do ($ = jQuery, window, document) ->
 
 	# The actual plugin constructor
 	class Plugin
+		@next : 0 # id in case you want to use more then one placeholder in the page
+		@fancybox_initialized : false # Trying to avoid fancybox to be initialized twice.
+
 		defaults =
 			handlebarURL:              "http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"
 			templateURL:               null
@@ -17,8 +20,8 @@ do ($ = jQuery, window, document) ->
 			offset:                    20
 			fullScreen:                yes
 			columnNumber:              5
-			containerID:               "#collektr"
-			container:                 "collektr"
+			containerID:               "#collektr" + @next # In this way we will get unique identifiers.
+			container:                 "collektr" + @next
 			noScroll:                  false
 			builtInTemplate:         """{{#each this}}
 																	  <div class="{{label}} new collektr-entry" id="{{id}}" data-external-id="{{external_id}}">
@@ -59,13 +62,14 @@ do ($ = jQuery, window, document) ->
 																	  </div>
 																	{{/each}}"""
 			urlCard: (selector, token) -> "http://api.collektr.com/boards/#{selector}/cards.json?user_token=#{token}"
-			callback:                  -> false	
+			callback:                  -> false
 
 		constructor: (@element, options) ->
 			@settings  = $.extend {}, defaults, options
 			@_defaults = defaults
 			@_name     = pluginName
 			@init()
+			@next++
 
 		init: ->
 			# Controls
@@ -78,7 +82,10 @@ do ($ = jQuery, window, document) ->
 			@masonrySetup()
 			@handlebarsSetup()
 			@styleSetup()
-			@fancySetup()
+
+			@fancySetup() if not Plugin.fancybox_initialized
+			Plugin.fancybox_initialized = true
+			
 			@settings.range = [0, 29] unless @settings.range? # why i need this?
 
 			# First print
@@ -93,7 +100,8 @@ do ($ = jQuery, window, document) ->
 				headers: {
 					"Range-Unit" : "items"
 					"Range" : "#{@settings.range[0]}-#{@settings.range[1]}"
-				}
+				},
+				crossDomain: true,
 			}
 
 		# Insert the new cards in the page, then call mesonry to arrange them
@@ -189,7 +197,6 @@ do ($ = jQuery, window, document) ->
 					else
 						if card.provider_name is "facebook" or card.provider_name is "instagram"
 							src = if card.provider_name is "facebook" then card.media_tag.match(/src="(.+)"/)[1] else card.media_url
-
 							return "<a href='" + src + "' class='fancybox' data-fancybox-type='iframe'><img src='" + card.thumbnail_image_url + "' class='img-responsive' style='width: 100%'></a>"
 						else
 						  return '<div class="embed-responsive embed-responsive-4by3">' + card.media_tag + '</div>'
@@ -208,7 +215,9 @@ do ($ = jQuery, window, document) ->
 				"<style>#{selector} .collektr-entry { width: #{wide}%; margin: 0% 1% 0% 1%; }</style><link rel='stylesheet' href='#{@settings.fancyCssURL}' type='text/css' 'media=screen' />"
 		fancySetup: () ->
 			setup=() =>
-				$(".fancybox").fancybox();
+				$(".fancybox").fancybox( {
+				}
+				);
 
 			if fancybox?
 				setup()
