@@ -91,7 +91,7 @@
    customHelpers: function(){
     //override the parseDate helper
     Handlebars.registerHelper('parseDate', function(_date, options) {
-     months = [ &quot;Jan&quot;, &quot;Feb&quot;, &quot;Mar&quot;, &quot;Apr&quot;, &quot;May&quot;, &quot;Jun&quot;, &quot;Jul&quot;, &quot;Aug&quot;, &quot;Oct&quot;, &quot;Nov&quot;, &quot;Dec&quot; ];
+     months = [ &quot;Jan&quot;, &quot;Feb&quot;, &quot;Mar&quot;, &quot;Apr&quot;, &quot;May&quot;, &quot;Jun&quot;, &quot;Jul&quot;, &quot;Aug&quot;, &quot;Sep&quot;, &quot;Oct&quot;, &quot;Nov&quot;, &quot;Dec&quot; ];
      date = new Date(_date)
      return date.getDate() + &quot; &quot; + months[date.getMonth()] + &quot; &quot; + date.getFullYear();
     });
@@ -135,7 +135,7 @@
 
             //override the parseDate helper
             Handlebars.registerHelper('parseDate', function(_date, options) {
-              months = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Oct", "Nov", "Dec" ];
+              months = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
               date = new Date(_date)
               return date.getDate() + " " + months[date.getMonth()] + " " + date.getFullYear();
             });

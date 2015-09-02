@@ -85,7 +85,7 @@ do ($ = jQuery, window, document) ->
 
 			@fancySetup() if not Plugin.fancybox_initialized
 			Plugin.fancybox_initialized = true
-			
+
 			@settings.range = [0, 29] unless @settings.range? # why i need this?
 
 			# First print
@@ -176,6 +176,7 @@ do ($ = jQuery, window, document) ->
 		        "Jun"
 		        "Jul"
 		        "Aug"
+		        "Sep"
 		        "Oct"
 		        "Nov"
 		        "Dec"

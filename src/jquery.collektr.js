@@ -183,7 +183,7 @@
             });
             Handlebars.registerHelper('parseDate', function(_date, options) {
               var date, months;
-              months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Oct", "Nov", "Dec"];
+              months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
               date = new Date(_date);
               return "" + months[date.getMonth()] + " " + (date.getDate()) + ", " + (date.getFullYear()) + " " + (date.toLocaleTimeString("en-US"));
             });
