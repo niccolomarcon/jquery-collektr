@@ -128,14 +128,14 @@
 
         $("#placeholder").collektr({
           token: "yNrgfjnz2cf7VkdRZazv",
-          selector: "cauterize",
+          selector: "twitter-tagged-with-landscape",
           columnNumber: 2,
           templateURL: "customTemplate.html",
           customHelpers: function(){
 
             //override the parseDate helper
             Handlebars.registerHelper('parseDate', function(_date, options) {
-              months = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Oct", "Nov", "Dec" ];
+              months = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
               date = new Date(_date)
               return date.getDate() + " " + months[date.getMonth()] + " " + date.getFullYear();
             });
