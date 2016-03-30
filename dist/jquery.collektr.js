@@ -1,5 +1,5 @@
 /*
- *  jquery-collektr - v1.0.0
+ *  jquery-collektr - v1.0.2
  *  A jquery plugin that can embed collektr in a web page.
  *  http://niccolomarcon.github.io/jquery-collektr/
  *
@@ -70,7 +70,7 @@
         }
         Plugin.fancybox_initialized = true;
         if (this.settings.range == null) {
-          this.settings.range = [0, 29];
+          this.settings.range = [0, this.settings.offset - 1];
         }
         return this.fetch();
       };

@@ -62,7 +62,7 @@
         }
         Plugin.fancybox_initialized = true;
         if (this.settings.range == null) {
-          this.settings.range = [0, 29];
+          this.settings.range = [0, this.settings.offset - 1];
         }
         return this.fetch();
       };
