@@ -1,5 +1,5 @@
 /*
- *  jquery-collektr - v1.0.0
+ *  jquery-collektr - v1.0.2
  *  A jquery plugin that can embed collektr in a web page.
  *  http://niccolomarcon.github.io/jquery-collektr/
  *
@@ -70,7 +70,7 @@
         }
         Plugin.fancybox_initialized = true;
         if (this.settings.range == null) {
-          this.settings.range = [0, 29];
+          this.settings.range = [0, this.settings.offset - 1];
         }
         return this.fetch();
       };
@@ -99,7 +99,6 @@
             var template;
             template = Handlebars.compile(data);
             $(_this.element).find(_this.settings.containerID).append(template(cards));
-            $(".new").css("display", "none");
             _this.masonry();
             _this.upgradeRange();
             if (!_this.settings.noScroll) {
@@ -109,11 +108,9 @@
           };
         })(this);
         if (this.settings.templateURL != null) {
-          return $.get(this.settings.templateURL, (function(_this) {
-            return function(data) {
-              return _render(data);
-            };
-          })(this));
+          return $.get(this.settings.templateURL, null, function(data) {
+            return _render(data);
+          });
         } else {
           return _render(this.settings.builtInTemplate);
         }
@@ -139,15 +136,12 @@
 
       Plugin.prototype.masonry = function() {
         $(this.element).find(this.settings.containerID).masonry('appended', $('.new'), true);
-        $.get(this.settings.imgLoadedURL, (function(_this) {
+        return imagesLoaded($(this.element).find(this.settings.containerID), (function(_this) {
           return function() {
-            return imagesLoaded($(_this.element).find(_this.settings.containerID), function() {
-              $(_this.element).find(_this.settings.containerID).masonry();
-              return $(".new").css("display", "block");
-            });
+            $(_this.element).find(_this.settings.containerID).masonry();
+            return $('.new').removeClass('new');
           };
         })(this));
-        return $('.new').removeClass('new');
       };
 
       Plugin.prototype.wrap = function() {
@@ -167,9 +161,9 @@
         if (typeof masonry !== "undefined" && masonry !== null) {
           return setup();
         } else {
-          return $.get(this.settings.masonryURL, (function(_this) {
+          return $.get(this.settings.masonryURL, null, (function(_this) {
             return function() {
-              return setup();
+              return $.get(_this.settings.imgLoadedURL, null, setup);
             };
           })(this));
         }
@@ -229,11 +223,7 @@
         if (typeof Handlebars !== "undefined" && Handlebars !== null) {
           return setup();
         } else {
-          return $.get(this.settings.handlebarURL, (function(_this) {
-            return function() {
-              return setup();
-            };
-          })(this));
+          return $.get(this.settings.handlebarURL, null, setup);
         }
       };
 
@@ -252,17 +242,13 @@
         var setup;
         setup = (function(_this) {
           return function() {
-            return $(".fancybox").fancybox({});
+            return $(".fancybox").fancybox();
           };
         })(this);
         if (typeof fancybox !== "undefined" && fancybox !== null) {
           return setup();
         } else {
-          return $.get(this.settings.fancyURL, (function(_this) {
-            return function() {
-              return setup();
-            };
-          })(this));
+          return $.get(this.settings.fancyURL, null, setup);
         }
       };
 

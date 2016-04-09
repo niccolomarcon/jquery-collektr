@@ -86,7 +86,7 @@ do ($ = jQuery, window, document) ->
 			@fancySetup() if not Plugin.fancybox_initialized
 			Plugin.fancybox_initialized = true
 
-			@settings.range = [0, 29] unless @settings.range? # why i need this?
+			@settings.range = [0, @settings.offset - 1] unless @settings.range?
 
 			# First print
 			@fetch()
@@ -110,7 +110,6 @@ do ($ = jQuery, window, document) ->
 			_render = (data) =>
 				template = Handlebars.compile data
 				$(@element).find(@settings.containerID).append(template cards)
-				$(".new").css("display", "none")
 
 				@masonry()
 				@upgradeRange()
@@ -118,7 +117,7 @@ do ($ = jQuery, window, document) ->
 				@fireCallback()
 
 			if @settings.templateURL?
-				$.get @settings.templateURL, (data) => _render(data)
+				$.get @settings.templateURL, null, (data) -> _render(data)
 			else
 				_render(@settings.builtInTemplate)
 
@@ -130,32 +129,32 @@ do ($ = jQuery, window, document) ->
 		# Using the modded endless-scroll library listen for the next scroll to fetch new data
 		scroll: () ->
 			selector = if @settings.fullScreen then window else $(@element)
-			$(selector).endlessScroll {
+			$(selector).endlessScroll
 				fireDelay: 100
 				callback: (f, p, s) => @fetch()
-				}
 
 		# Arrange with masonry the new entries
 		masonry: () ->
 			$(@element).find(@settings.containerID).masonry('appended', $('.new'), true)
-			$.get @settings.imgLoadedURL, () => imagesLoaded $(@element).find(@settings.containerID), () =>
+			imagesLoaded $(@element).find(@settings.containerID), () =>
 				$(@element).find(@settings.containerID).masonry()
-				$(".new").css("display", "block")
-			$('.new').removeClass('new')
+				$('.new').removeClass('new')
 
 		# Setup methods
 		wrap: () -> $(@element).append "<div id='#{@settings.container}' />"
+
 		masonrySetup: () ->
 			setup = () =>
-				$(@element).find(@settings.containerID).masonry {
+				$(@element).find(@settings.containerID).masonry
 					itemSelector: '.collektr-entry'
 					percentPosition: true
-					}
 
 			if masonry?
 				setup()
 			else
-				$.get @settings.masonryURL, () => setup()
+				$.get @settings.masonryURL, null, () =>
+					$.get @settings.imgLoadedURL, null, setup
+
 		handlebarsSetup: () ->
 			setup = () =>
 				Handlebars.registerHelper 'parseLinks', (text, options) ->
@@ -207,23 +206,23 @@ do ($ = jQuery, window, document) ->
 			if Handlebars?
 				setup()
 			else
-				$.get @settings.handlebarURL, () => setup()
+				$.get @settings.handlebarURL, null, setup
+
 		styleSetup: () ->
 			# Create the style for the columns.
 			$("head").append () =>
 				wide = 100 / @settings.columnNumber - 2
 				selector = if @element.id isnt "" then "##{@element.id}" else ".#{@element.className}"
 				"<style>#{selector} .collektr-entry { width: #{wide}%; margin: 0% 1% 0% 1%; }</style><link rel='stylesheet' href='#{@settings.fancyCssURL}' type='text/css' 'media=screen' />"
+
 		fancySetup: () ->
-			setup=() =>
-				$(".fancybox").fancybox( {
-				}
-				);
+			setup = () =>
+				$(".fancybox").fancybox()
 
 			if fancybox?
 				setup()
 			else
-				$.get @settings.fancyURL, () => setup()
+				$.get @settings.fancyURL, null, setup
 
 		# Fire the callback
 		fireCallback: () ->
