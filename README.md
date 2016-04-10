@@ -28,6 +28,12 @@ If you want to use the built-in template used to display the cards you will also
 ```
 By using only this code you will get somethig like [this](http://niccolomarcon.github.io/jquery-collektr).
 
+# Testimonials (?)
+### Stefanel
+![Stefanel](http://i.imgur.com/EbZ7bru.jpg)
+### Elio e le Storie Tese
+![EelST](http://i.imgur.com/rD2oY1I.jpg)
+
 # How it was developed
 Collektr's jquery plugin has been developed mainly using [CoffeeScript](https://github.com/jashkenas/coffeescript) after creating a boilerplate with [Yeoman](https://github.com/yeoman/yeoman) and [Jquery Generator](https://github.com/jquery-boilerplate/generator-jquery-boilerplate). The plugin uses 4 external libraries:
 * [Endless Scroll](https://github.com/fredwu/jquery-endless-scroll)
@@ -44,4 +50,3 @@ Launch ```grunt -f``` to build everything. To run the demo you need a webserver 
 # TODO
 The plugin is ready but it can be better. These are some things to do:
 * [ ] Complete the implementation of the share-menu in the built-in template
-* [ ] Performance could be **really** better (the scroll in the first place)
